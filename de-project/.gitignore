@@ -1,0 +1,9 @@
+cd ~/de-project
+cat > .gitignore << EOF
+*.parquet
+*.csv
+.env
+__pycache__/
+*.pyc
+.DS_Store
+EOF
