@@ -1,9 +1,12 @@
-cat >> ~/de-project/.gitignore << EOF
+cat >> ~/Documents/GitHub/nyc-taxi-data-pipeline/de-project/.gitignore << EOF
 # dbt
 logs/
 target/
 dbt_packages/
 .user.yml
+
+# Large data files
+*.parquet
 
 # Mac
 .DS_Store
@@ -12,4 +15,9 @@ dbt_packages/
 __pycache__/
 *.pyc
 .env
+
+# dbt example models
+models/example/
+
 EOF
+
