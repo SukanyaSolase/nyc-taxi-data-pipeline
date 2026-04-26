@@ -1,0 +1,15 @@
+cat >> ~/de-project/.gitignore << EOF
+# dbt
+logs/
+target/
+dbt_packages/
+.user.yml
+
+# Mac
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.env
+EOF
