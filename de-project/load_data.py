@@ -2,7 +2,7 @@ import pandas as pd
 import os
 from sqlalchemy import create_engine
 
-# Connection - update yourpassword
+# Connection
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'yourpassword')
 engine = create_engine(f'postgresql://postgres:{DB_PASSWORD}@localhost:5432/de_project')
 
