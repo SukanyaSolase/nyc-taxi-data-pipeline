@@ -1,5 +1,6 @@
 cat >> ~/Documents/GitHub/nyc-taxi-data-pipeline/de-project/.gitignore << EOF
 # dbt
+de_project/
 logs/
 target/
 dbt_packages/
