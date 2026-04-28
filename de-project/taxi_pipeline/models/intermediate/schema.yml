@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: int_trips_daily
+    description: "Daily aggregated NYC taxi trip metrics"
+    columns:
+      - name: trip_date
+        description: "Date of trips"
+        tests:
+          - not_null
+          - unique
+      - name: total_trips
+        description: "Total number of trips that day"
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total fare revenue that day"
+        tests:
+          - not_null
+      - name: avg_distance
+        description: "Average trip distance that day"
+        tests:
+          - not_null

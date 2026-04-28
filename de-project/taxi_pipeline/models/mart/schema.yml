@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: mart_trips_summary
+    description: "Final business metrics ready for dashboard"
+    columns:
+      - name: trip_date
+        description: "Date of trips"
+        tests:
+          - not_null
+          - unique
+      - name: revenue_per_trip
+        description: "Average revenue per trip"
+        tests:
+          - not_null
+      - name: tip_percentage
+        description: "Tips as percentage of revenue"
+        tests:
+          - not_null
+      - name: total_trips
+        description: "Total trips that day"
+        tests:
+          - not_null

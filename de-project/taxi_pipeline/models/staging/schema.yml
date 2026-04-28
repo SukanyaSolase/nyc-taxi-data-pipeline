@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_trips
+    description: "Cleaned and filtered NYC taxi trips"
+    columns:
+      - name: vendor_id
+        description: "Taxi vendor ID"
+        tests:
+          - not_null
+      - name: pickup_datetime
+        description: "Trip pickup timestamp"
+        tests:
+          - not_null
+      - name: fare_amount
+        description: "Base fare amount"
+        tests:
+          - not_null
+      - name: trip_distance
+        description: "Trip distance in miles"
+        tests:
+          - not_null
+      - name: passenger_count
+        description: "Number of passengers"
+        tests:
+          - not_null
+      - name: payment_type
+        tests:
+          - accepted_values:
+              values: [1, 2, 3, 4]

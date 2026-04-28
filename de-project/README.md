@@ -18,11 +18,15 @@ End-to-end data engineering project using NYC TLC Trip Data.
 | Intermediate | int_trips_daily    | Aggregates 3M rows to daily metrics |
 | Mart         | mart_trips_summary | Business metrics for dashboard      |
 
+## Pipeline Lineage
+
+![dbt Lineage](screenshot/lineageGraph.png)
+
 ## Progress
 
 - [x] Day 1-2: AWS setup + S3 upload
 - [x] Day 3: Load 3M rows into PostgreSQL
 - [x] Day 4: dbt setup + connected to PostgreSQL
 - [x] Day 5: Built 3-layer dbt transformation models
-- [ ] Day 6: dbt tests + documentation
+- [x] Day 6: dbt tests + documentation
 - [ ] Day 7: Metabase dashboard
