@@ -20,7 +20,7 @@ End-to-end data engineering project using NYC TLC Trip Data.
 
 ## Pipeline Lineage
 
-![dbt Lineage](screenshots/lineageGraph.png)
+![dbt Lineage](screenshots)
 
 ## Progress
 
