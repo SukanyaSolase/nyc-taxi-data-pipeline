@@ -16,4 +16,13 @@ dbt_packages/
 __pycache__/
 *.pyc
 .env
+
+# Metabase
+*.jar
+*.db.mv.db
+*.db.trace.db
+plugins/
 EOF
+
+
+
