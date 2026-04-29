@@ -50,23 +50,25 @@ Raw Parquet File → AWS S3 → PostgreSQL → dbt Transforms → Metabase Dashb
 
 ## Project Structure
 
+```
 nyc-taxi-data-pipeline/
 ├── screenshots/
-│ ├── dashboard.png
-│ └── lineageGraph.png
+│   ├── dashboard.png
+│   └── lineageGraph.png
 └── de-project/
-├── load_data.py
-└── taxi_pipeline/
-└── models/
-├── staging/
-│ ├── stg_trips.sql
-│ └── schema.yml
-├── intermediate/
-│ ├── int_trips_daily.sql
-│ └── schema.yml
-└── mart/
-├── mart_trips_summary.sql
-└── schema.yml
+    ├── load_data.py
+    └── taxi_pipeline/
+        └── models/
+            ├── staging/
+            │   ├── stg_trips.sql
+            │   └── schema.yml
+            ├── intermediate/
+            │   ├── int_trips_daily.sql
+            │   └── schema.yml
+            └── mart/
+                ├── mart_trips_summary.sql
+                └── schema.yml
+```
 
 ## Prerequisites
 
