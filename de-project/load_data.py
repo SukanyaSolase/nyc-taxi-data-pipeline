@@ -10,7 +10,6 @@ engine = create_engine(f'postgresql://postgres:{DB_PASSWORD}@localhost:5432/de_p
 print("Reading parquet file...")
 df = pd.read_parquet('/Users/sukanya/de-project/yellow_tripdata_2023-01.parquet')
 
-# Keep only columns we need
 df = df[[
     'VendorID',
     'tpep_pickup_datetime',
