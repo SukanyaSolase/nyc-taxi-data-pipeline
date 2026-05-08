@@ -54,10 +54,10 @@ dbt run --target snowflake  # Snowflake
 16 dbt tests across all 3 layers — all passing on both PostgreSQL and Snowflake ✅
 
 | Test Type       | Columns Tested                                                                                                                                                 |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | not_null        | vendor_id, pickup_datetime, fare_amount, trip_distance, passenger_count, trip_date, total_trips, total_revenue, avg_distance, revenue_per_trip, tip_percentage |
 | unique          | trip_date (intermediate + mart layers)                                                                                                                         |
-| accepted_values | payment_type [1,2,3,4]                                                                                                                                         |     |
+| accepted_values | payment_type [1,2,3,4]                                                                                                                                         |
 
 ## Key Insights from Dashboard
 
