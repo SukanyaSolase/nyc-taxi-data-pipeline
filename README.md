@@ -4,7 +4,7 @@ End-to-end ELT data engineering project processing 3M+ rows of NYC TLC Taxi Trip
 
 ## Architecture
 
-Raw Parquet File → AWS S3 → PostgreSQL → dbt Transforms → Metabase Dashboard
+Raw Parquet File → AWS S3 → PostgreSQL/Snowflake → dbt Transforms → Metabase Dashboard
 
 ## Tech Stack
 
@@ -51,12 +51,13 @@ dbt run --target snowflake  # Snowflake
 
 ## Data Quality Tests
 
-15 dbt tests across all 3 layers — all passing ✅
+16 dbt tests across all 3 layers — all passing on both PostgreSQL and Snowflake ✅
 
-| Test Type | Columns Tested                                                                                                                                                 |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| not_null  | vendor_id, pickup_datetime, fare_amount, trip_distance, passenger_count, trip_date, total_trips, total_revenue, avg_distance, revenue_per_trip, tip_percentage |
-| unique    | trip_date (intermediate + mart layers)                                                                                                                         |
+| Test Type       | Columns Tested                                                                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| not_null        | vendor_id, pickup_datetime, fare_amount, trip_distance, passenger_count, trip_date, total_trips, total_revenue, avg_distance, revenue_per_trip, tip_percentage |
+| unique          | trip_date (intermediate + mart layers)                                                                                                                         |
+| accepted_values | payment_type [1,2,3,4]                                                                                                                                         |     |
 
 ## Key Insights from Dashboard
 
@@ -92,16 +93,15 @@ nyc-taxi-data-pipeline/
 - Python 3.9+
 - PostgreSQL installed and running
 - AWS account with S3 bucket configured
+- Snowflake account (free trial at snowflake.com)
 - NYC TLC dataset downloaded locally
-
-## How to Run
 
 ## How to Run
 
 **1. Install dependencies:**
 
 ```bash
-pip3 install pandas pyarrow psycopg2-binary sqlalchemy dbt-postgres
+pip3 install pandas pyarrow psycopg2-binary sqlalchemy dbt-postgres dbt-snowflake
 ```
 
 **2. Load raw data into PostgreSQL:**
@@ -110,29 +110,58 @@ pip3 install pandas pyarrow psycopg2-binary sqlalchemy dbt-postgres
 python3 de-project/load_data.py
 ```
 
-**3. Run dbt transformations:**
+**3. Configure dbt targets in `~/.dbt/profiles.yml`:**
 
-```bash
-cd de-project/taxi_pipeline
-dbt run
+```yaml
+taxi_pipeline:
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      dbname: de_project
+      schema: public
+    snowflake:
+      type: snowflake
+      account: your_account
+      database: NYC_TAXI_DW
+      warehouse: DEV
+      schema: PUBLIC
+  target: dev
 ```
 
-**4. Run data quality tests:**
+**4. Run dbt transformations:**
 
 ```bash
-dbt test
+# PostgreSQL
+dbt run --target dev
+
+# Snowflake
+dbt run --target snowflake
 ```
 
-**5. Generate documentation:**
+**5. Run data quality tests:**
+
+```bash
+dbt test --target dev
+dbt test --target snowflake
+```
+
+**6. Generate documentation:**
 
 ```bash
 dbt docs generate && dbt docs serve
 ```
 
+```
+
 ## What I Learned
 
-- Designed a **3-layer ELT pipeline** (staging → intermediate → mart)
+- Designed a **3-layer ELT pipeline** (staging → intermediate → mart) with clear separation of concerns
 - Used **dbt ref()** for dependency management and environment-agnostic table references
 - Applied **data quality testing** to catch bad data before it reaches the dashboard
-- Understood **idempotency** — pipeline can be re-run anytime from S3 source of truth
-- Built **cloud-agnostic architecture** — PostgreSQL locally, designed to swap Redshift in production
+- Understood **idempotency** — pipeline can be re-run anytime from S3 as source of truth
+- Built **cloud-agnostic architecture** — identical dbt models deployable to PostgreSQL or Snowflake
+- Migrated pipeline from PostgreSQL to Snowflake with **zero SQL changes** — only connection string updated
+- Loaded 3M rows from **AWS S3 into Snowflake** using storage integration and COPY INTO command
+```
