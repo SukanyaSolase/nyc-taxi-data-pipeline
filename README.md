@@ -13,8 +13,25 @@ Raw Parquet File → AWS S3 → PostgreSQL → dbt Transforms → Metabase Dashb
 | Python, Pandas, SQLAlchemy | Data extraction and loading     |
 | AWS S3                     | Raw data lake storage           |
 | PostgreSQL                 | Local data warehouse            |
+| Snowflake                  | Cloud data warehouse            |
 | dbt                        | Data transformation (ELT)       |
 | Metabase                   | Business intelligence dashboard |
+
+## Multi-Cloud Compatibility
+
+This pipeline is cloud-agnostic — the same dbt models run on both PostgreSQL and Snowflake with zero code changes. Only the connection string in `profiles.yml` needs to change.
+
+| Target      | Warehouse          | Status                 |
+| ----------- | ------------------ | ---------------------- |
+| `dev`       | PostgreSQL (local) | ✅ 16/16 tests passing |
+| `snowflake` | Snowflake (cloud)  | ✅ 16/16 tests passing |
+
+To switch targets:
+
+```bash
+dbt run --target dev        # PostgreSQL
+dbt run --target snowflake  # Snowflake
+```
 
 ## Dashboard
 
